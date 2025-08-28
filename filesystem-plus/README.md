@@ -1,135 +1,221 @@
-Sun# Filesystem Plus - Enhanced Claude Desktop Extension
+# Filesystem Plus - Enhanced Claude Desktop MCP Extension
 
-**Filesystem Plus** is an enhanced version of the Claude Desktop filesystem extension that adds support for read-only directories and granular permission control.
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/smcneece/filesystem-plus)](https://github.com/smcneece/filesystem-plus/releases)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/smcneece/filesystem-plus.svg)](https://github.com/smcneece/filesystem-plus/commits/main)
+[![GitHub](https://img.shields.io/github/license/smcneece/filesystem-plus)](LICENSE)
+[![Maintainer](https://img.shields.io/badge/maintainer-Shawn%20McNeece%20%40smcneece-blue.svg)](https://github.com/smcneece)
 
-## 🚀 Key Features
+> [![Sponsor](https://img.shields.io/badge/Sponsor-💖-pink)](https://github.com/sponsors/smcneece) <-- Why not sponsor me, even a few bucks shows you appreciate the work and gives encouragement. You can sponsor me monthly, or just a one time thing. Check out my [other HA Automations & Blueprints](https://github.com/smcneece?tab=repositories) while you're here.
 
-- **📁 Read-Write Directories**: Full access - Claude can read, write, create, and modify files
-- **🔒 Read-Only Directories**: Safe access - Claude can only read files, no modifications allowed
-- **🛡️ Permission Protection**: Prevents accidental changes to important directories
-- **📊 Enhanced Security**: Granular control over what Claude can access
-- **💡 User-Friendly**: Familiar interface with clear permission indicators
+> **Enhanced MCP Extension**: This is an improved version of the original Claude Desktop filesystem extension with read-only directory protection, blazing fast copy operations, and comprehensive permission control for secure AI file access.
 
-## ⚡ Quick Start
+> ⭐ **Help Others Find This Extension!** If Filesystem Plus is working well for you, please star this repository to help other Claude Desktop users discover these security and performance improvements!
+>
+> [![GitHub stars](https://img.shields.io/github/stars/smcneece/filesystem-plus?style=social)](https://github.com/smcneece/filesystem-plus/stargazers) [![GitHub forks](https://img.shields.io/github/forks/smcneece/filesystem-plus?style=social)](https://github.com/smcneece/filesystem-plus/network/members)
 
-1. **Copy Extension**: Place the `filesystem-plus` folder in your Claude Desktop extensions directory
-2. **Install Extension**: Use Claude Desktop's extension manager to install
-3. **Configure Directories**: 
-   - Add **Read-Write Directories** for folders Claude can modify
-   - Add **Read-Only Directories** for folders that should be protected
-4. **Enjoy Enhanced Security**: Claude will now respect your permission settings
+> 📬 **Stay Updated:** Click the "Watch" button (top-right of this repo) → "Releases only" to get email notifications when new versions are released!
 
-## 📋 Configuration
+## What Makes This Enhanced?
 
-### In Claude Desktop Extension Settings:
+**Core Security Improvements:**
+- **Read-Only Directory Protection**: Prevent Claude from modifying critical directories while maintaining read access
+- **Granular Permission Control**: Separate read-write and read-only directory configuration
+- **Write Operation Blocking**: Comprehensive protection against unintended file modifications
+- **Path Validation**: Robust security checks and symlink protection
 
-**Read-Write Directories:**
-- Directories where Claude has full access
-- Can read, write, create, modify, and delete files
-- Best for: Working directories, temporary files, project folders
+**Performance Enhancements:**
+- **Blazing Fast Copy Operations**: Direct OS copy operations (300MB files in 1 second vs 10+ minutes)
+- **Optimized File Handling**: Efficient memory usage and streamlined operations
+- **Enhanced User Experience**: Clear permission feedback and error messages
 
-**Read-Only Directories:** 
-- Directories where Claude can only read files
-- All write operations (create, modify, delete) are blocked
-- Best for: Important documents, reference materials, system files
+**Technical Improvements:**
+- **Direct MCP Integration**: No child process overhead for maximum performance
+- **Comprehensive Tool Set**: 11 filesystem tools including the new high-speed copy_file
+- **Cross-Platform Support**: Works on Windows, macOS, and Linux
+- **Modern Architecture**: Built with latest MCP SDK and ES modules
 
-## 🔧 How It Works
+## Installation
 
-Filesystem Plus extends the standard MCP filesystem server with:
+### Requirements
 
-1. **Enhanced Manifest**: Supports separate read-write and read-only directory configurations
-2. **Permission Middleware**: Intercepts filesystem operations and checks permissions
-3. **Path Validation**: Ensures operations respect directory permission settings
-4. **Clear Error Messages**: Helpful feedback when operations are blocked
+**Claude Desktop**: This extension requires Claude Desktop with MCP extension support.
+**Node.js**: Ensure Node.js is installed on your system.
 
-## 💻 Supported Operations
+### Method 1: Replace Original Filesystem Extension (Recommended)
 
-### Read Operations (Work in both directory types):
-- `read_file` - Read file contents
-- `read_multiple_files` - Read multiple files at once  
-- `list_directory` - List directory contents
-- `directory_tree` - Show directory structure
-- `search_files` - Search for files
-- `get_file_info` - Get file metadata
-- `list_allowed_directories` - Show configured directories with permissions
+**Step-by-Step Installation:**
 
-### Write Operations (Blocked in read-only directories):
-- `write_file` - Create or overwrite files
-- `edit_file` - Modify existing files
-- `create_directory` - Create new directories
-- `move_file` - Move or rename files/directories
+1. **Locate Claude Desktop Extensions Directory**
+   - **Windows**: `%APPDATA%\Claude\Claude Extensions\`
+   - **macOS**: `~/Library/Application Support/Claude/Claude Extensions/`
+   - **Linux**: `~/.config/Claude/Claude Extensions/`
 
-## 🛡️ Security Benefits
+2. **Backup Original Extension** (Optional but recommended)
+   - Copy the existing `filesystem` folder to `filesystem-original`
 
-- **Prevent Accidents**: No more accidentally modifying important files
-- **Granular Control**: Mix read-only and read-write access as needed
-- **Clear Boundaries**: Always know what Claude can and cannot modify
-- **Data Protection**: Keep critical documents safe while enabling automation
+3. **Install Filesystem Plus**
+   - Copy the `filesystem-plus` folder to your Claude Desktop extensions directory
+   - Rename `filesystem-plus` to `filesystem` (replacing the original)
 
-## 🔍 Example Use Cases
+4. **Restart Claude Desktop**
 
-**Development Projects:**
-- Read-Write: `~/projects/current-work/`
-- Read-Only: `~/projects/archived/`, `~/projects/references/`
+5. **Configure Extension**
+   - Go to Claude Desktop Settings → Extensions
+   - Find "Filesystem Plus" and configure your directories
 
-**Document Management:**  
-- Read-Write: `~/documents/drafts/`
-- Read-Only: `~/documents/important/`, `~/documents/archives/`
+### Method 2: Side-by-Side Installation
 
-**System Administration:**
-- Read-Write: `~/temp/`, `~/workspace/`
-- Read-Only: `~/configs/`, `~/backups/`
+1. Copy `filesystem-plus` folder to extensions directory (keep original name)
+2. Add via Claude Desktop Settings → Extensions → Add MCP Extension
+3. Configure directory permissions as needed
 
-## 🚨 Error Messages
+### Configuration
 
-When Claude tries to perform write operations in read-only directories:
+**Directory Setup:**
 
+| Configuration | Description | Example |
+|---------------|-------------|---------|
+| **Read-Write Directories** | Claude can read, write, create, and modify files | `C:\Projects`, `~/Documents/Code` |
+| **Read-Only Directories** | Claude can only read files - no modifications allowed | `C:\Windows`, `~/Documents/Important` |
+
+**Permission Model:**
+- **Copy FROM read-only**: Allowed (can copy files out of protected directories)
+- **Copy TO read-only**: Blocked (prevents writing to protected directories)
+- **Move operations**: Both source and destination must be writable
+- **All read operations**: Always allowed regardless of directory type
+
+## Available Tools
+
+### File Operations
+- **read_file**: Read complete contents of a single file
+- **read_multiple_files**: Read multiple files simultaneously  
+- **write_file**: Create or overwrite files with new content
+- **edit_file**: Make targeted edits with git-style diff output
+- **copy_file**: **NEW** - Ultra-fast direct OS copy operations
+- **move_file**: Move or rename files and directories
+
+### Directory Operations  
+- **list_directory**: Get detailed directory listings
+- **directory_tree**: Recursive JSON tree structure
+- **create_directory**: Create directories with recursive support
+- **search_files**: Pattern-based file search with exclusions
+
+### Utility Operations
+- **get_file_info**: Retrieve file metadata and permissions
+- **list_allowed_directories**: View configured directory permissions
+
+## Performance Improvements
+
+**Copy Operations:**
+- **Before**: 300MB file = 10+ minutes (read+write approach)
+- **After**: 300MB file = 1 second (direct OS copy)
+- **Improvement**: 600x+ performance gain for file copying
+
+**The copy_file Advantage:**
+Traditional approach required reading entire files into memory, processing content, then writing line-by-line. Our direct OS copy bypasses all content processing for maximum speed.
+
+**When to Use Each Tool:**
+- **copy_file**: File-to-file duplication (blazing fast)
+- **write_file**: When Claude generates new content
+- **move_file**: Renaming or relocating files (already optimized)
+
+## Permission Examples
+
+**Real-World Configuration Example:**
 ```
-❌ Permission denied: Cannot perform write operation in read-only directory.
-Path: /path/to/readonly/file.txt
-Operation: write_file
+Read-Write Directories:
+- F:\OneDrive\Documents\HomeAssistantCode  # Your main development folder
 
-This directory is configured as read-only in Filesystem Plus. 
-You can read files but cannot modify, create, or delete them.
+Read-Only Directories:  
+- F:\OneDrive\Documents\HomeAssistantCode\github_staging  # Protected staging area
 ```
 
-## 🆚 Comparison with Standard Extension
+**Why This Setup?**
+- **Main Development Access**: Claude can create, modify, and organize files in your coding projects
+- **Protected Staging**: The `github_staging` folder contains ready-to-commit files that shouldn't be accidentally modified
+- **Workflow Protection**: Prevents Claude from changing files you've prepared for GitHub deployment
 
-| Feature | Standard Filesystem | Filesystem Plus |
-|---------|-------------------|----------------|
-| Directory Access | All-or-nothing | Granular permissions |
-| Safety | Limited | Read-only protection |
-| Configuration | Single directory list | Separate read-write/read-only |
-| Error Messages | Basic | Detailed permission info |
-| Use Cases | General access | Security-conscious workflows |
+**Additional Use Cases:**
+- **System Protection**: Block access to `C:\Windows`, `/etc`, system directories  
+- **Document Safety**: Protect important documents while allowing reference access
+- **Backup Protection**: Read-only access to backup directories
+- **Configuration Safety**: Read system configs without modification risk
 
-## 📦 Installation Requirements
+## Troubleshooting
 
-- **Claude Desktop**: Version 0.10.0 or higher
-- **Node.js**: Version 16.0.0 or higher
-- **Platforms**: Windows, macOS, Linux
+**Common Issues:**
 
-## 🔧 Technical Details
+**Extension Not Loading:**
+- Verify Node.js is installed and accessible
+- Check Claude Desktop logs for error messages
+- Ensure directory permissions allow access
 
-- **Built on**: @modelcontextprotocol/server-filesystem
-- **Architecture**: Permission-checking middleware wrapper
-- **Path Handling**: Robust Windows/Unix path normalization
-- **Error Handling**: Graceful fallback to standard filesystem server
+**Missing Directory Error (FIXED):**
+- **Symptom**: Claude Desktop crashes when a configured directory is deleted
+- **Solution**: Extension now gracefully handles missing directories
+- **Behavior**: Missing directories are automatically skipped, extension continues with valid directories
+- **Logging**: Check Claude Desktop logs for "Warning: Cannot access directory" messages
 
-## 🤝 Contributing
+**Permission Denied Errors:**
+- Verify directories are configured correctly
+- Check file system permissions on target directories
+- Ensure paths are absolute and valid
 
-This is a community-enhanced extension. Contributions welcome!
+**Copy Operations Slow:**
+- Large files should use copy_file tool instead of write_file
+- Verify direct OS access isn't blocked by antivirus
 
-- **Report Issues**: GitHub Issues
-- **Feature Requests**: Discussion forum
-- **Pull Requests**: Follow contribution guidelines
+**For detailed troubleshooting**: Check Claude Desktop's extension logs and verify MCP server connectivity.
 
-## 📄 License
+## Technical Details
 
-MIT License - Same as the original Claude Desktop filesystem extension.
+**Architecture:**
+- **Direct MCP Integration**: Uses @modelcontextprotocol/sdk directly
+- **No Child Processes**: Eliminates process spawning overhead
+- **ES Modules**: Modern JavaScript with proper import/export
+- **Comprehensive Validation**: Path normalization and security checks
+
+**Security Features:**
+- **Path Traversal Protection**: Prevents access outside allowed directories
+- **Symlink Validation**: Checks real paths for symlinked files
+- **Permission Inheritance**: Consistent security model across all operations
+- **Error Isolation**: Secure error handling without information leakage
+
+## Contributing
+
+We welcome contributions! Please:
+1. Fork this repository
+2. Create a feature branch  
+3. Test thoroughly with real Claude Desktop usage
+4. Submit a pull request with detailed description
+
+**Development Guidelines:**
+- Maintain backward compatibility with existing configurations
+- Follow existing code style and patterns
+- Add comprehensive error handling
+- Test both Windows and Unix-style paths
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Credits & Attribution
+
+- **Original Filesystem Extension**: Anthropic - Foundation MCP filesystem server
+- **Enhanced Edition**: [@smcneece](https://github.com/smcneece) - Community-driven security and performance improvements
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/smcneece/filesystem-plus/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/smcneece/filesystem-plus/discussions)
+- **Community**: [Claude Desktop Community](https://github.com/anthropics/claude-desktop)
+
+## Performance Notes
+
+**Content Generation Delays**: While we've optimized file operations significantly, Claude Desktop's content generation process (the "Continue" button issue) is outside our extension's scope. This delay occurs before MCP tools are called and represents Claude's internal AI processing time.
+
+**Community Recommendation**: Users experiencing frequent "Continue" button interruptions should request improvements from Anthropic for Claude Desktop's content generation handling.
 
 ---
 
-**Stay Safe, Stay Productive! 🚀**
-
-With Filesystem Plus, you can give Claude the access it needs while keeping your important files protected.
+**Enjoying secure file access with blazing fast copy operations, comprehensive permission control, and enhanced Claude Desktop integration? Consider starring this repository to help others discover these improvements!**

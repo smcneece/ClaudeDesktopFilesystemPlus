@@ -9,9 +9,9 @@
     "name": "Shawn McNeece",
     "url": "https://github.com/smcneece"
   },
-  "homepage": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus",
-  "documentation": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus#readme",
-  "support": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus/issues",
+  "homepage": "https://github.com/smcneece/ClaudeFileSystemPlus",
+  "documentation": "https://github.com/smcneece/ClaudeFileSystemPlus#readme",
+  "support": "https://github.com/smcneece/ClaudeFileSystemPlus/issues",
   "icon": "icon.png",
   "tools": [
     {

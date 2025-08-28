@@ -4,39 +4,27 @@ All notable changes to the Filesystem Plus extension will be documented in this 
 
 ## [2025.8.1] - 2025-08-27
 
-### Initial Release - Core Security Features
-- **Read-Only Directory Protection**: Granular permission control with dual directory configuration
-- **Blazing Fast File Operations**: 600x+ performance improvement for copy operations using direct OS operations
+### Core Features
+- **Read-Only Directory Protection**: Configure directories that Claude can read but never modify
+- **Dual Directory Configuration**: Separate selection for read-write and read-only directories  
 - **Enhanced Security**: Prevents accidental modification of important files while maintaining full read access
 - **Cross-Platform Support**: Windows, macOS, and Linux compatibility with proper path normalization
 - **DXT Installation**: One-click installation support via drag-and-drop .dxt files
 - **MIT Licensed**: Proper attribution to Anthropic's original filesystem extension
 
-### Performance Optimizations
-- **Ultra-Fast Copying**: Direct fs.copyFile() operations (300MB in 1 second vs 10+ minutes)
-- **Memory Efficient**: Eliminates content buffering for large file operations
-- **Direct MCP Integration**: Uses @modelcontextprotocol/sdk for maximum performance
+### Performance Enhancement
+- **Ultra-Fast File Copying**: New copy_file tool using direct fs.copyFile() operations (300MB in 1 second vs 10+ minutes)
+- **Direct OS Operations**: Bypasses content serialization for massive performance improvement on file copying
 - **Graceful Error Handling**: Missing directories don't crash the extension
 
-### User Interface
-- **Dual Directory Configuration**: Separate selection for read-write and read-only directories
+### User Experience  
 - **Clear Permission Indicators**: Visual indicators showing permission levels for each directory
-- **Helpful Error Messages**: Clear feedback when write operations are blocked
-- **Configuration Screenshot**: Included visual guide for directory setup
+- **Helpful Error Messages**: Clear feedback when write operations are blocked on read-only directories
+- **Configuration Interface**: Intuitive setup page with visual guide for directory permissions
 
-## Upcoming Features (Future Releases)
+## Future Considerations
 
-### v2025.9.1 (Planned)
-- Pattern-based directory permissions (file type filtering)
-- Enhanced logging and debugging capabilities
-- Community feedback integration
-- Advanced configuration options
-
-### v2025.10.1 (Planned)
-- Performance optimizations for additional file operations
-- Enhanced UI indicators within Claude Desktop
-- Improved error reporting and diagnostics
-- Additional security features based on user feedback
+Future releases may include community-requested features based on user feedback and actual needs. No specific features are currently planned or promised.
 
 ## Notes
 
