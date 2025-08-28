@@ -2,16 +2,16 @@
 
 ![Filesystem Plus](images/social-preview.png)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/YourNameece/ClaudeDesktopFilesystemPlus)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/releases)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/YourNameece/ClaudeDesktopFilesystemPlus.svg)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/commits/main)
-[![GitHub](https://img.shields.io/github/license/YourNameece/ClaudeDesktopFilesystemPlus)](LICENSE)
-[![Maintainer](https://img.shields.io/badge/maintainer-Shawn_McNeece-blue.svg)](https://github.com/YourNameece)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/smcneece/ClaudeDesktopFilesystemPlus)](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/releases)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/smcneece/ClaudeDesktopFilesystemPlus.svg)](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/commits/main)
+[![GitHub](https://img.shields.io/github/license/smcneece/ClaudeDesktopFilesystemPlus)](LICENSE)
+[![Maintainer](https://img.shields.io/badge/maintainer-Shawn_McNeece-blue.svg)](https://github.com/smcneece)
 
-> [![Sponsor](https://img.shields.io/badge/Sponsor-💖-pink)](https://github.com/sponsors/YourNameece) <-- Why not sponsor me, even a few bucks shows you appreciate the work and gives encouragement. You can sponsor me monthly, or just a one time thing. Check out my [other projects](https://github.com/YourNameece?tab=repositories) while you're here.
+> [![Sponsor](https://img.shields.io/badge/Sponsor-💖-pink)](https://github.com/sponsors/smcneece) <-- Why not sponsor me, even a few bucks shows you appreciate the work and gives encouragement. You can sponsor me monthly, or just a one time thing. Check out my [other projects](https://github.com/smcneece?tab=repositories) while you're here.
 
 > ⭐ **Help Others Find This Extension!** If Filesystem Plus is working well for you, please star this repository to help other Claude Desktop users discover enhanced file system security!
 >
-> [![GitHub stars](https://img.shields.io/github/stars/YourNameece/ClaudeDesktopFilesystemPlus?style=social)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/stargazers) [![GitHub forks](https://img.shields.io/github/forks/YourNameece/ClaudeDesktopFilesystemPlus?style=social)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/network/members)
+> [![GitHub stars](https://img.shields.io/github/stars/smcneece/ClaudeDesktopFilesystemPlus?style=social)](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/stargazers) [![GitHub forks](https://img.shields.io/github/forks/smcneece/ClaudeDesktopFilesystemPlus?style=social)](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/network/members)
 
 > 📬 **Stay Updated:** Click the "Watch" button (top-right of this repo) → "Releases only" to get email notifications when new versions are released!
 
@@ -53,25 +53,6 @@ Perfect for protecting important documents, configuration files, or any director
 
 ---
 
-## 📸 Screenshots
-
-### Enhanced Directory Listing
-```
-Allowed directories:
-C:\Users\MyName\Documents\Work (Read-Write)
-C:\Users\MyName\Documents\Sensitive (Read-Only)
-```
-
-### Permission Denied Protection
-```
-Permission denied: Cannot write_file in read-only directory.
-Path: C:\Users\MyName\Documents\Sensitive\config.txt
-
-This directory is configured as read-only. You can read files but cannot modify them.
-```
-
----
-
 ## 🚀 Installation
 
 ### **Prerequisites**
@@ -79,13 +60,13 @@ This directory is configured as read-only. You can read files but cannot modify 
 - Windows, macOS, or Linux
 
 ### **Method 1: DXT Installation (Recommended)**
-1. Download the latest `.dxt` file: [**Download Filesystem Plus**](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/releases/latest)
+1. Download the latest `.dxt` file: [**Download Filesystem Plus**](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/releases/latest)
 2. Open Claude Desktop → **Settings** → **Extensions**
 3. **Drag and drop** the `filesystem-plus.dxt` file into the extensions area
 4. One-click installation complete!
 
 ### **Method 2: Manual Installation**
-1. Download the latest release: [**Download Filesystem Plus**](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/releases/latest)
+1. Download the latest release: [**Download Filesystem Plus**](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/releases/latest)
 2. Extract the `filesystem-plus` folder
 3. Open Claude Desktop → **Settings** → **Extensions** 
 4. Click **Install Extension**
