@@ -5,7 +5,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/YourNameece/ClaudeDesktopFilesystemPlus)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/releases)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/y/YourNameece/ClaudeDesktopFilesystemPlus.svg)](https://github.com/YourNameece/ClaudeDesktopFilesystemPlus/commits/main)
 [![GitHub](https://img.shields.io/github/license/YourNameece/ClaudeDesktopFilesystemPlus)](LICENSE)
-[![Maintainer](https://img.shields.io/badge/maintainer-Shawn%20McNeece%20%40YourNameece-blue.svg)](https://github.com/YourNameece)
+[![Maintainer](https://img.shields.io/badge/maintainer-Shawn_McNeece-blue.svg)](https://github.com/YourNameece)
 
 > [![Sponsor](https://img.shields.io/badge/Sponsor-💖-pink)](https://github.com/sponsors/YourNameece) <-- Why not sponsor me, even a few bucks shows you appreciate the work and gives encouragement. You can sponsor me monthly, or just a one time thing. Check out my [other projects](https://github.com/YourNameece?tab=repositories) while you're here.
 
