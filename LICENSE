@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Shawn McNeece
+Copyright (c) 2025 Your Name
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+ATTRIBUTION NOTICE:
+
+This software is based on and extends the original Filesystem extension for
+Claude Desktop, developed by Anthropic. The original work is also licensed
+under the MIT License.
+
+Original work: Copyright (c) 2024 Anthropic
+Original repository: https://claude.ai
+
+The enhancements in this version include:
+- Read-only directory protection
+- Granular permission control
+- Performance optimizations
+- Enhanced error handling
+
+Both the original work and these enhancements are provided under the MIT License.

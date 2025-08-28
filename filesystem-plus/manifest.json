@@ -1,0 +1,120 @@
+{
+  "dxt_version": "0.1",
+  "name": "FilesystemPlus",
+  "display_name": "Filesystem Plus",
+  "version": "2025.8.1",
+  "description": "Enhanced filesystem extension with read-only directory support and granular permissions.",
+  "long_description": "Filesystem Plus is an enhanced version of the Claude Desktop filesystem extension that adds support for read-only directories and granular permission control. You can now configure certain directories as read-only to protect important files from accidental modification while still allowing Claude to read and analyze their contents. Perfect for keeping your critical documents safe while enabling powerful file analysis and automation.\n\nKey features:\n- Read-only directory protection\n- Granular permission control\n- Blazing fast file copying (600x+ performance improvement)\n- All standard filesystem operations\n- Enhanced security and safety\n- Familiar user interface with checkboxes for permission management\n\nUnderneath the hood, it uses @modelcontextprotocol/server-filesystem with additional permission checking middleware.",
+  "author": {
+    "name": "Shawn McNeece",
+    "url": "https://github.com/smcneece"
+  },
+  "homepage": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus",
+  "documentation": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus#readme",
+  "support": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus/issues",
+  "icon": "icon.png",
+  "tools": [
+    {
+      "name": "read_file",
+      "description": "Read the contents of a file (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "read_multiple_files",
+      "description": "Read the contents of multiple files (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "write_file",
+      "description": "Write content to a file (blocked in read-only directories)"
+    },
+    {
+      "name": "edit_file",
+      "description": "Edit the contents of a file (blocked in read-only directories)"
+    },
+    {
+      "name": "create_directory",
+      "description": "Create a new directory (blocked in read-only directories)"
+    },
+    {
+      "name": "list_directory",
+      "description": "List contents of a directory (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "directory_tree",
+      "description": "Display directory structure as a tree (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "move_file",
+      "description": "Move or rename a file (blocked for files in read-only directories)"
+    },
+    {
+      "name": "search_files",
+      "description": "Search for files by name or content (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "get_file_info",
+      "description": "Get information about a file (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "copy_file",
+      "description": "Ultra-fast file copying with direct OS operations (600x+ performance improvement)"
+    },
+    {
+      "name": "list_allowed_directories",
+      "description": "List directories that can be accessed and their permission levels"
+    }
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js",
+        "--readwrite",
+        "${user_config.full_access_directories}",
+        "--readonly",
+        "${user_config.read_only_directories}"
+      ]
+    }
+  },
+  "keywords": [
+    "api",
+    "automation",
+    "productivity",
+    "security",
+    "permissions",
+    "read-only",
+    "filesystem",
+    "enhanced"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=16.0.0"
+    }
+  },
+  "user_config": {
+    "full_access_directories": {
+      "type": "directory",
+      "title": "\ud83d\udcc1 Full Access Directories",
+      "description": "Claude can read, write, create, and modify files in these directories",
+      "multiple": true,
+      "required": false,
+      "default": []
+    },
+    "read_only_directories": {
+      "type": "directory",
+      "title": "\ud83d\udd12 Read-Only Directories",
+      "description": "Claude can only read files in these directories (no modifications allowed)",
+      "multiple": true,
+      "required": false,
+      "default": []
+    }
+  }
+}
