@@ -199,28 +199,6 @@ This ensures **zero performance impact** for allowed operations while providing 
 3. Use `read_multiple_files` for better batch performance
 
 ---
-
-## 📋 Changelog
-
-### **v2025.8.1 - Enhanced Security Foundation**
-**Release Date:** August 24, 2025  
-**Type:** Initial Release
-
-**✨ Features:**
-- Complete read-only directory protection system
-- Enhanced directory listing with permission indicators  
-- Granular permission control interface
-- Backward-compatible operation support
-- Clear permission denied error messages
-
-**🔧 Technical:**
-- Permission proxy architecture implementation
-- MCP protocol integration with custom middleware
-- Fallback support to original filesystem server
-- Cross-platform path normalization
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
