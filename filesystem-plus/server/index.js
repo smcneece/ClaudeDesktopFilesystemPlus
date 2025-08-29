@@ -21,8 +21,8 @@ import { minimatch } from 'minimatch';
 // Command line argument parsing
 const args = process.argv.slice(2);
 if (args.length === 0) {
-    console.error("Usage: mcp-server-filesystem <allowed-directory> [additional-directories...]");
-    process.exit(1);
+    console.error("No directories configured. Please configure directories in Claude Desktop Settings > Extensions > Filesystem Plus");
+    // Continue with empty configuration instead of exiting
 }
 
 /**
@@ -73,8 +73,8 @@ console.error(`  Read-Only directories: ${config.readOnlyDirs.length > 0 ? confi
 const allDirectories = [...config.readWriteDirs, ...config.readOnlyDirs];
 
 if (allDirectories.length === 0) {
-  console.error('Error: No directories specified. Please configure at least one directory.');
-  process.exit(1);
+  console.error('No directories configured. Server will start with no filesystem access.');
+  console.error('Configure directories in Claude Desktop Settings > Extensions > Filesystem Plus');
 }
 
 /**
@@ -119,8 +119,8 @@ config.readWriteDirs = config.readWriteDirs.filter(dir => validDirectories.inclu
 config.readOnlyDirs = config.readOnlyDirs.filter(dir => validDirectories.includes(dir));
 
 if (validDirectories.length === 0) {
-    console.error('Error: No valid directories found. Please check your configuration.');
-    process.exit(1);
+    console.error('No valid directories found. Server will start with no filesystem access.');
+    console.error('Please check your directory configuration in Claude Desktop Settings.');
 }
 
 if (invalidDirectories.length > 0) {
@@ -164,7 +164,7 @@ async function validatePath(requestedPath) {
         throw new Error(`Access denied - path outside allowed directories: ${absolute} not in ${allowedDirectories.join(', ')}`);
     }
     
-    // Handle symlinks by checking their real path
+    // Handle symlinks by checking their real path, but handle Windows drive roots gracefully
     try {
         const realPath = await fs.realpath(absolute);
         const normalizedReal = normalizePath(realPath);
@@ -175,19 +175,32 @@ async function validatePath(requestedPath) {
         return realPath;
     }
     catch (error) {
-        // For new files that don't exist yet, verify parent directory
-        const parentDir = path.dirname(absolute);
+        // fs.realpath() often fails on Windows drive roots (Y:\), so try fs.access first
         try {
-            const realParentPath = await fs.realpath(parentDir);
-            const normalizedParent = normalizePath(realParentPath);
-            const isParentAllowed = allowedDirectories.some(dir => normalizedParent.startsWith(dir));
-            if (!isParentAllowed) {
-                throw new Error("Access denied - parent directory outside allowed directories");
-            }
+            await fs.access(absolute);
+            // Path exists, return it
             return absolute;
         }
-        catch {
-            throw new Error(`Parent directory does not exist: ${parentDir}`);
+        catch (accessError) {
+            // For new files that don't exist yet, verify parent directory
+            const parentDir = path.dirname(absolute);
+            if (parentDir === absolute) {
+                // This is a root directory (like Y:\), and access failed
+                throw new Error(`Cannot access drive: ${absolute}`);
+            }
+            
+            try {
+                await fs.access(parentDir);
+                const normalizedParent = normalizePath(parentDir);
+                const isParentAllowed = allowedDirectories.some(dir => normalizedParent.startsWith(dir));
+                if (!isParentAllowed) {
+                    throw new Error("Access denied - parent directory outside allowed directories");
+                }
+                return absolute;
+            }
+            catch {
+                throw new Error(`Parent directory does not exist: ${parentDir}`);
+            }
         }
     }
 }
@@ -246,6 +259,10 @@ const SearchFilesArgsSchema = z.object({
 });
 
 const GetFileInfoArgsSchema = z.object({
+    path: z.string(),
+});
+
+const DeleteFileArgsSchema = z.object({
     path: z.string(),
 });
 
@@ -379,6 +396,11 @@ async function startServer() {
                     name: "get_file_info",
                     description: "Retrieve detailed metadata about a file or directory. Returns comprehensive information including size, creation time, last modified time, permissions, and type. This tool is perfect for understanding file characteristics without reading the actual content. Only works within allowed directories.",
                     inputSchema: zodToJsonSchema(GetFileInfoArgsSchema),
+                },
+                {
+                    name: "delete_file",
+                    description: "PERMANENTLY DELETE a file or directory. This operation cannot be undone! Use with extreme caution. Blocked in read-only directories. For directories, all contents will be recursively deleted.",
+                    inputSchema: zodToJsonSchema(DeleteFileArgsSchema),
                 },
                 {
                     name: "list_allowed_directories",
@@ -679,6 +701,77 @@ async function startServer() {
                         };
                     } catch (error) {
                         throw new Error(`Could not get file info: ${error}`);
+                    }
+                }
+
+                case "delete_file": {
+                    const parsed = DeleteFileArgsSchema.parse(args);
+                    
+                    try {
+                        // CRITICAL SAFETY CHECKS
+                        
+                        // 1. Validate and normalize the path
+                        const validatedPath = await validatePath(parsed.path, allowedDirectories);
+                        
+                        // 2. Extra safety: Block if path contains certain dangerous patterns
+                        const dangerousPatterns = [
+                            /^[A-Z]:\\?$/, // Drive roots like C:\
+                            /^\/$/,       // Unix root
+                            /system32/i,  // Windows system directory
+                            /windows/i,   // Windows directory  
+                            /boot/i,      // Boot directory
+                            /etc/i,       // Unix system config
+                            /bin/i,       // Unix binaries
+                            /usr/i,       // Unix user binaries
+                            /var/i,       // Unix variable data
+                        ];
+                        
+                        const normalizedForCheck = normalizePath(validatedPath).toLowerCase();
+                        for (const pattern of dangerousPatterns) {
+                            if (pattern.test(normalizedForCheck)) {
+                                throw new Error(`Deletion blocked: Path appears to be a system directory: ${parsed.path}`);
+                            }
+                        }
+                        
+                        // 3. Check if this is a read-only directory (write operations blocked)
+                        if (isReadOnlyPath(validatedPath, config.readOnlyDirs)) {
+                            return {
+                                content: [{
+                                    type: "text",
+                                    text: `Permission denied: Cannot delete_file in read-only directory.\nPath: ${parsed.path}\n\nThis directory is configured as read-only. You can read files but cannot modify them.`
+                                }],
+                                isError: true
+                            };
+                        }
+                        
+                        // 4. Check if file/directory exists
+                        const stats = await fs.stat(validatedPath);
+                        
+                        // 5. Perform the deletion with appropriate method
+                        if (stats.isDirectory()) {
+                            // Delete directory and all contents recursively  
+                            await fs.rm(validatedPath, { recursive: true, force: true });
+                            return {
+                                content: [{ type: "text", text: `Successfully deleted directory and all contents: ${validatedPath}` }],
+                            };
+                        } else {
+                            // Delete single file
+                            await fs.unlink(validatedPath);
+                            return {
+                                content: [{ type: "text", text: `Successfully deleted file: ${validatedPath}` }],
+                            };
+                        }
+                        
+                    } catch (error) {
+                        if (error.code === 'ENOENT') {
+                            throw new Error(`File or directory does not exist: ${parsed.path}`);
+                        } else if (error.code === 'EACCES' || error.code === 'EPERM') {
+                            throw new Error(`Permission denied: Cannot delete ${parsed.path} - check file permissions`);
+                        } else if (error.code === 'ENOTEMPTY') {
+                            throw new Error(`Directory not empty: ${parsed.path} - use recursive deletion or empty first`);
+                        } else {
+                            throw new Error(`Could not delete file: ${error.message}`);
+                        }
                     }
                 }
 

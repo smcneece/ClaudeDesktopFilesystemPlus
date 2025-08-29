@@ -2,6 +2,26 @@
 
 All notable changes to the Filesystem Plus extension will be documented in this file.
 
+## [2025.8.3] - 2025-08-29
+
+### New Features
+- **Delete File/Directory Tool**: New delete_file function with comprehensive safety checks
+  - Supports both file and directory deletion (recursive)
+  - Blocked in read-only directories for safety
+  - System directory protection (prevents deletion of C:\, /system32/, etc.)
+  - Requires individual user permission approval in Claude Desktop
+- **Enhanced Manifest**: Complete tool descriptions for all 12 available functions
+
+### Technical Improvements
+- **Auto-Detection**: Deploy script now automatically finds live extension regardless of installation method
+- **Path Safety**: Multiple validation layers to prevent accidental system file deletion
+- **Error Handling**: Detailed error messages for different deletion failure scenarios
+
+### Known Issues
+- **DXT Installation**: Currently investigating issues with DXT packaging that may prevent complete extension details from showing in Claude Desktop
+- **Recommended**: Use manual installation method until DXT issues are resolved
+- **Status**: All functionality works correctly; only the installation method is affected
+
 ## [2025.8.1] - 2025-08-27
 
 ### Core Features

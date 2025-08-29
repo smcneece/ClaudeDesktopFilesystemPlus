@@ -1,13 +1,13 @@
 {
   "dxt_version": "0.1",
-  "name": "FilesystemPlus",
+  "name": "filesystem-plus",
   "display_name": "Filesystem Plus",
-  "version": "2025.8.2",
+  "version": "2025.8.3",
   "description": "Enhanced filesystem extension with read-only directory support and granular permissions.",
   "long_description": "Filesystem Plus is an enhanced version of the Claude Desktop filesystem extension that adds support for read-only directories and granular permission control. You can now configure certain directories as read-only to protect important files from accidental modification while still allowing Claude to read and analyze their contents. Perfect for keeping your critical documents safe while enabling powerful file analysis and automation.\n\nKey features:\n- Read-only directory protection\n- Granular permission control\n- All standard filesystem operations\n- Enhanced security and safety\n- Familiar user interface with checkboxes for permission management\n\nUnderneath the hood, it uses @modelcontextprotocol/server-filesystem with additional permission checking middleware.",
   "author": {
     "name": "Shawn McNeece",
-    "url": "https://github.com/smcneece"
+    "url": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus"
   },
   "homepage": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus",
   "documentation": "https://github.com/smcneece/ClaudeDesktopFilesystemPlus#readme",
@@ -53,6 +53,10 @@
     {
       "name": "get_file_info",
       "description": "Get information about a file (works in both read-write and read-only directories)"
+    },
+    {
+      "name": "delete_file",
+      "description": "Permanently delete files or directories (blocked in read-only directories, requires user permission approval)"
     },
     {
       "name": "list_allowed_directories",
