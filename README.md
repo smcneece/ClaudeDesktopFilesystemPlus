@@ -76,12 +76,12 @@ Sadly I was only able to make file copying faster, like a ton faster! I'm stil r
 - Windows, macOS, or Linux
 
 ### **Method 1: Manual Installation (Recommended)**
-> **⚠️ DXT Status Update:** We're currently investigating issues with DXT packaging that may prevent some features from working correctly. Manual installation is the only method supported currently. 
+> **⚠️ DXT Status Update:** We're currently investigating issues with DXT packaging that may prevent some features from working correctly.  **Manual installation is the only method supported currently.** 
 
 1. Download the latest release: [**Download Filesystem Plus**](https://github.com/smcneece/ClaudeDesktopFilesystemPlus/releases/latest)
 2. Extract the `filesystem-plus` folder
-3. Open Claude Desktop → **Settings** → **Extensions** 
-4. Click **Install Extension**
+3. Open Claude Desktop → **Settings** → **Extensions**  →  **Advanced Settings**
+4. Click **Install Unpacked Extension**
 5. Select the extracted `filesystem-plus` folder
 6. Confirm installation
 
